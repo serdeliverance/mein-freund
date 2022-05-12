@@ -2,7 +2,8 @@ package io.github.sdev.meinfreund.domain.usecases
 
 import io.github.sdev.meinfreund.domain.entities.OriginalExpense
 import io.github.sdev.meinfreund.domain.entities.Expense
+import io.github.sdev.meinfreund.domain.entities.Credit
 
-trait AddExpenseUseCase[F[_]]:
+trait AddSingleExpenseUseCase[F[_]]:
 
-  def addExpense(expense: OriginalExpense): F[Expense]
+  def addExpense(expense: OriginalExpense): F[Credit]

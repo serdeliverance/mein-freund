@@ -8,7 +8,7 @@ import cats.effect.IO
 import io.github.sdev.meinfreund.application.ports.out.messaging.KafkaProducer
 import io.github.sdev.meinfreund.application.quotation.QuotationProvider
 
-class AddExpenseUseCaseServiceSpec extends CatsEffectSuite {
+class AddSingleExpenseUseCaseServiceSpec extends CatsEffectSuite {
 
   private val expenseRepository = mock[ExpenseRepository[IO]]
   private val kafkaProducer     = mock[KafkaProducer[IO]]

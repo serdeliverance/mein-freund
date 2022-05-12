@@ -15,10 +15,12 @@ lazy val expenses = (project in file("expenses"))
       catsEffect,
       catsEffectKernel,
       catsEffectStd,
+      log4cats,
+      logbackClassic                               % Runtime,
       mockitoCore                                  % Test,
       mockitoScala.cross(CrossVersion.for3Use2_13) % Test,
       catsEffectTestingSpecs2                      % Test,
-      munitCatsEffect % Test
+      munitCatsEffect                              % Test
     )
   )
 
