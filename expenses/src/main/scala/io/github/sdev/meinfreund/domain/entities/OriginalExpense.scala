@@ -2,11 +2,10 @@ package io.github.sdev.meinfreund.domain.entities
 
 import java.time.LocalDateTime
 
-case class Expense(
+case class OriginalExpense(
     name: String,
     description: Option[String],
     category: Option[Category],
     date: LocalDateTime,
-    amountUsd: BigDecimal,
-    amountArs: BigDecimal
+    amount: BigDecimal
 )

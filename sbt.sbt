@@ -27,7 +27,7 @@ ThisBuild / watchStartMessage := { case (iteration, ProjectRef(build, projectNam
 
 // scalafix
 
-ThisBuild / scalafixScalaBinaryVersion := scalaBinaryVersion.value
+// ThisBuild / scalafixScalaBinaryVersion := scalaBinaryVersion.value
 ThisBuild / scalafixDependencies ++= Seq(
   organizeImports
 )
