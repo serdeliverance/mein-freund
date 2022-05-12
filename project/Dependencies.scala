@@ -8,7 +8,7 @@ object Dependencies {
     val munitCatsEffect3        = "1.0.7"
     val mockitoCore             = "4.5.1"
     val mockitoScala            = "1.16.42"
-    val scalatest               = "3.2.11"
+    val scalatest               = "3.2.12"
 
     val organizeImports = "0.6.0"
   }
@@ -21,5 +21,6 @@ object Dependencies {
   val mockitoCore             = "org.mockito"           % "mockito-core"               % V.mockitoCore
   val mockitoScala            = "org.mockito"          %% "mockito-scala"              % V.mockitoScala
   val scalatest               = "org.scalatest"        %% "scalatest"                  % V.scalatest
+  val scalactic               = "org.scalactic"        %% "scalactic"                  % V.scalatest
   val organizeImports         = "com.github.liancheng" %% "organize-imports"           % V.organizeImports
 }
