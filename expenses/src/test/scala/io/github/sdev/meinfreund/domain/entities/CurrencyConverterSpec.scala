@@ -1,5 +1,7 @@
 package io.github.sdev.meinfreund.domain.entities
 
-class CurrencyConverterSpec extends AnyFlatSpec with Matchers {
+import munit.CatsEffectSuite
+
+class CurrencyConverterSpec extends CatsEffectSuite {
   // TODO add tests
 }
