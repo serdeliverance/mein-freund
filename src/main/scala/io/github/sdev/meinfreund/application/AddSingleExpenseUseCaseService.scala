@@ -3,7 +3,6 @@ package io.github.sdev.meinfreund.application
 import cats.Monad
 import cats.syntax.all._
 import io.github.sdev.meinfreund.application.ports.out.persistence.ExpenseRepository
-import io.github.sdev.meinfreund.application.ports.out.persistence.CreditRepository
 import io.github.sdev.meinfreund.domain.entities.OriginalExpense
 import io.github.sdev.meinfreund.domain.entities.Expense
 import io.github.sdev.meinfreund.domain.entities.CurrencyConverter.convert
@@ -17,8 +16,7 @@ import cats.Applicative
 
 class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
     quotationProvider: QuotationProvider[F],
-    expenseRepository: ExpenseRepository[F],
-    creditRepository: CreditRepository[F]
+    expenseRepository: ExpenseRepository[F]
 ) extends AddSingleExpenseUseCase[F]:
 
   override def addExpense(expense: OriginalExpense): F[Credit] =
@@ -26,11 +24,11 @@ class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
       quote      <- quotationProvider.getQuote()
       newExpense <- convert(expense, quote).pure[F]
       expense    <- expenseRepository.save(newExpense)
-      newCredit <- Credit(
+      credit <- Credit(
         expense.amountUsd,
         expense.id.toExpenseIdList,
+        quote,
         expense.date.toExpensePeriod
       )
         .pure[F]
-      credit <- creditRepository.save(newCredit)
     yield credit
