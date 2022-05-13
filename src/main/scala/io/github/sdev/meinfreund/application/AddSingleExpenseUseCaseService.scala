@@ -2,7 +2,6 @@ package io.github.sdev.meinfreund.application
 
 import cats.Monad
 import cats.syntax.all._
-import io.github.sdev.meinfreund.application.ports.out.messaging.KafkaProducer
 import io.github.sdev.meinfreund.application.ports.out.persistence.ExpenseRepository
 import io.github.sdev.meinfreund.application.ports.out.persistence.CreditRepository
 import io.github.sdev.meinfreund.domain.entities.OriginalExpense
@@ -19,8 +18,7 @@ import cats.Applicative
 class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
     quotationProvider: QuotationProvider[F],
     expenseRepository: ExpenseRepository[F],
-    creditRepository: CreditRepository[F],
-    kafkaProducer: KafkaProducer[F]
+    creditRepository: CreditRepository[F]
 ) extends AddSingleExpenseUseCase[F]:
 
   override def addExpense(expense: OriginalExpense): F[Credit] =
@@ -28,7 +26,6 @@ class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
       quote      <- quotationProvider.getQuote()
       newExpense <- convert(expense, quote).pure[F]
       expense    <- expenseRepository.save(newExpense)
-      _          <- kafkaProducer.publish[Expense](expense, "expense-added")
       newCredit <- Credit(
         expense.amountUsd,
         expense.id.toExpenseIdList,

@@ -3,9 +3,9 @@ import Dependencies._
 ThisBuild / organization := "io.github.sdev.meinfreund"
 ThisBuild / scalaVersion := "3.1.2"
 
-lazy val expenses = (project in file("expenses"))
+lazy val root = (project in file("."))
   .settings(
-    name := "expenses",
+    name := "mein-freund",
     libraryDependencies ++= Seq(
       catsEffect,
       catsEffectKernel,
@@ -17,9 +17,4 @@ lazy val expenses = (project in file("expenses"))
       catsEffectTestingSpecs2                      % Test,
       munitCatsEffect                              % Test
     )
-  )
-
-lazy val notifications = (project in file("notifications"))
-  .settings(
-    name := "notifications"
   )
