@@ -10,6 +10,7 @@ lazy val root = (project in file("."))
       catsEffect,
       catsEffectKernel,
       catsEffectStd,
+      skunk,
       log4cats,
       logbackClassic                               % Runtime,
       mockitoCore                                  % Test,

@@ -6,6 +6,7 @@ object Dependencies {
     val catsEffect              = "3.3.11"
     val catsEffectTestingSpecs2 = "1.4.0"
     val munitCatsEffect3        = "1.0.7"
+    val skunk                   = "0.2.3"
     val mockitoCore             = "4.5.1"
     val mockitoScala            = "1.16.42"
     val logbackVersion          = "1.2.10"
@@ -18,6 +19,7 @@ object Dependencies {
   val catsEffectKernel        = "org.typelevel"        %% "cats-effect-kernel"         % V.catsEffect
   val catsEffectStd           = "org.typelevel"        %% "cats-effect-std"            % V.catsEffect
   val catsEffectTestingSpecs2 = "org.typelevel"        %% "cats-effect-testing-specs2" % V.catsEffectTestingSpecs2
+  val skunk                   = "org.tpolecat"         %% "skunk-core"                 % V.skunk
   val munitCatsEffect         = "org.typelevel"        %% "munit-cats-effect-3"        % V.munitCatsEffect3
   val mockitoCore             = "org.mockito"           % "mockito-core"               % V.mockitoCore
   val mockitoScala            = "org.mockito"          %% "mockito-scala"              % V.mockitoScala
