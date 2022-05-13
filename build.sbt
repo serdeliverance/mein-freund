@@ -23,8 +23,3 @@ lazy val notifications = (project in file("notifications"))
   .settings(
     name := "notifications"
   )
-
-lazy val reportGenerator = (project in file("report-generator"))
-  .settings(
-    name := "report-generator"
-  )
