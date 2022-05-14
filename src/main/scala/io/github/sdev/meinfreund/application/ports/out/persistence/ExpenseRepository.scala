@@ -4,4 +4,4 @@ import io.github.sdev.meinfreund.domain.entities.Expense
 
 trait ExpenseRepository[F[_]]:
 
-  def save(expense: Expense): F[Expense]
+  def save(expense: Expense): F[Unit]
