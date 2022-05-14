@@ -19,11 +19,11 @@ class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
     expenseRepository: ExpenseRepository[F]
 ) extends AddSingleExpenseUseCase[F]:
 
-  override def addExpense(expense: OriginalExpense): F[Credit] =
+  override def addExpense(originalExpense: OriginalExpense): F[Credit] =
     for
-      quote      <- quotationProvider.getQuote()
-      newExpense <- convert(expense, quote).pure[F]
-      expense    <- expenseRepository.save(newExpense)
+      quote   <- quotationProvider.getQuote()
+      expense <- convert(originalExpense, quote).pure[F]
+      _       <- expenseRepository.save(expense)
       credit <- Credit(
         expense.amountUsd,
         expense.id.toExpenseIdList,
