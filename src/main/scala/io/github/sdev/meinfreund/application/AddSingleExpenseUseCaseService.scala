@@ -14,7 +14,7 @@ import io.github.sdev.meinfreund.application.util.ExpenseUtil._
 import org.typelevel.log4cats.Logger
 import cats.Applicative
 
-class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
+class AddSingleExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
     quotationProvider: QuotationProvider[F],
     expenseRepository: ExpenseRepository[F]
 ) extends AddSingleExpenseUseCase[F]:
@@ -26,7 +26,6 @@ class AddExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
       _       <- expenseRepository.save(expense)
       credit <- Credit(
         expense.amountUsd,
-        expense.id.toExpenseIdList,
         quote,
         expense.date.toExpensePeriod
       )

@@ -5,3 +5,5 @@ import io.github.sdev.meinfreund.domain.entities.Expense
 trait ExpenseRepository[F[_]]:
 
   def save(expense: Expense): F[Unit]
+
+  def saveBulk(expenses: List[Expense]): F[Long]

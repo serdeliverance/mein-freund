@@ -25,3 +25,6 @@ class ExpenseRepositoryImpl[F[_]](sessionPool: Resource[F, Session[F]])(using mc
           cmd.execute(entity).void
         }
       }
+
+  // TODO
+  override def saveBulk(expenses: List[Expense]): F[Long] = ???
