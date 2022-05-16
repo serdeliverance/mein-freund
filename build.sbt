@@ -10,8 +10,6 @@ lazy val root = (project in file("."))
       catsEffect,
       catsEffectKernel,
       catsEffectStd,
-      circeCore,
-      circeParser,
       circeGeneric,
       http4sEmberServer,
       http4sCirce,
