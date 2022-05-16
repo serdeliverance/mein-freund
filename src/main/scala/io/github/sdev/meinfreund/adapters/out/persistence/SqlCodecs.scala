@@ -4,4 +4,4 @@ import skunk.Codec
 import io.github.sdev.meinfreund.domain.entities.Expense
 
 object SqlCodecs:
-  val expenseCodec: Codec[Expense] = ???
+  val expenseCodec: Codec[ExpenseEntity] = ???

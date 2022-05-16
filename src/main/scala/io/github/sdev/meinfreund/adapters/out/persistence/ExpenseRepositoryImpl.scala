@@ -12,14 +12,16 @@ import cats.effect._
 import cats.Applicative
 import cats.effect.implicits._
 import cats.effect.MonadCancel
+import ExpenseEntity._
 
 class ExpenseRepositoryImpl[F[_]](sessionPool: Resource[F, Session[F]])(using mc: MonadCancel[F, Throwable])
     extends ExpenseRepository[F]:
 
   override def save(expense: Expense): F[Unit] =
+    val entity = expense.toEntity()
     sessionPool
       .use { session =>
         session.prepare(insertExpense).use { cmd =>
-          cmd.execute(expense).void
+          cmd.execute(entity).void
         }
       }

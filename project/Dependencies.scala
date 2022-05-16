@@ -6,6 +6,7 @@ object Dependencies {
     val catsEffect              = "3.3.11"
     val catsEffectTestingSpecs2 = "1.4.0"
     val munitCatsEffect3        = "1.0.7"
+    val circe                   = "0.14.1"
     val skunk                   = "0.2.3"
     val http4sVersion           = "0.23.11"
     val mockitoCore             = "4.5.1"
@@ -20,6 +21,9 @@ object Dependencies {
   val catsEffectKernel        = "org.typelevel"        %% "cats-effect-kernel"         % V.catsEffect
   val catsEffectStd           = "org.typelevel"        %% "cats-effect-std"            % V.catsEffect
   val catsEffectTestingSpecs2 = "org.typelevel"        %% "cats-effect-testing-specs2" % V.catsEffectTestingSpecs2
+  val circeCore               = "io.circe"             %% "circe-core"                 % V.circe
+  val circeParser             = "io.circe"             %% "circe-parser"               % V.circe
+  val circeGeneric            = "io.circe"             %% "circe-generic"              % V.circe
   val http4sEmberServer       = "org.http4s"           %% "http4s-ember-server"        % V.http4sVersion
   val http4sCirce             = "org.http4s"           %% "http4s-circe"               % V.http4sVersion
   val http4sDsl               = "org.http4s"           %% "http4s-dsl"                 % V.http4sVersion

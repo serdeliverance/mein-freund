@@ -6,7 +6,7 @@ import io.github.sdev.meinfreund.domain.entities.Expense
 import SqlCodecs.expenseCodec
 
 object SqlCommands:
-  val insertExpense: Command[Expense] =
+  val insertExpense: Command[ExpenseEntity] =
     sql"""
         INSERT INTO expense VALUES ($expenseCodec)
         """".command
