@@ -18,11 +18,11 @@ object Main extends IOApp:
 
   private def createServer(): Resource[IO, Server] =
     for
-      sessionPool                    <- Resource.eval(???)
-      expenseRepository              <- Resource.eval(new ExpenseRepositoryImpl(sessionPool))
-      quotationProvider              <- Resource.eval(new QuotationProviderImpl[IO])
-      addSingleExpenseUseCaseService <- Resource.eval(new AddSingleExpenseUseCase(quotationProvider, expenseRepository))
-      expenseRoutes                  <- Resource.eval(ExpenseRoute.endpoints[IO](addSingleExpenseUseCaseService))
+      sessionPool <- Resource.eval(???)
+      expenseRepository              = new ExpenseRepositoryImpl(sessionPool)
+      quotationProvider              = new QuotationProviderImpl[IO]
+      addSingleExpenseUseCaseService = new AddSingleExpenseUseCase(quotationProvider, expenseRepository)
+      expenseRoutes <- Resource.eval(ExpenseRoute.endpoints[IO](addSingleExpenseUseCaseService))
       httpApp <- Resource.eval(
         Router("/v1/api" -> expenseRoutes).orNotFound
       )
