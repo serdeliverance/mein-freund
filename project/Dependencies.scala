@@ -9,6 +9,7 @@ object Dependencies {
     val munitCatsEffect3        = "1.0.7"
     val skunk                   = "0.2.3"
     val http4sVersion           = "0.23.11"
+    val ciris                   = "2.3.2"
     val mockitoCore             = "4.5.1"
     val mockitoScala            = "1.16.42"
     val logbackVersion          = "1.2.10"
@@ -26,6 +27,7 @@ object Dependencies {
   val http4sCirce             = "org.http4s"           %% "http4s-circe"               % V.http4sVersion
   val http4sDsl               = "org.http4s"           %% "http4s-dsl"                 % V.http4sVersion
   val skunk                   = "org.tpolecat"         %% "skunk-core"                 % V.skunk
+  val ciris                   = "is.cir"               %% "ciris"                      % V.ciris
   val munitCatsEffect         = "org.typelevel"        %% "munit-cats-effect-3"        % V.munitCatsEffect3
   val mockitoCore             = "org.mockito"           % "mockito-core"               % V.mockitoCore
   val mockitoScala            = "org.mockito"          %% "mockito-scala"              % V.mockitoScala

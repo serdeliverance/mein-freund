@@ -15,6 +15,7 @@ lazy val root = (project in file("."))
       http4sCirce,
       http4sDsl,
       skunk,
+      ciris,
       log4cats,
       logbackClassic                               % Runtime,
       mockitoCore                                  % Test,
