@@ -25,6 +25,7 @@ import io.github.sdev.meinfreund.application.AddSingleExpenseUseCaseService
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 import org.http4s.server.middleware.{ Logger => HttpLogger }
+import io.github.sdev.meinfreund.application.config.Config.loadConfig
 
 object Main extends IOApp:
 
@@ -33,9 +34,7 @@ object Main extends IOApp:
     given logger: Logger[F] = Slf4jLogger.getLogger[F]
 
     for
-      config <- Resource.eval(
-        AppConfig(DbConfig("localhost", 8080, "root", "root", "mf")).pure[F]
-      ) // TODO load config using ciris
+      config <- Resource.eval(loadConfig[F]())
       sessionPool <- Session.pooled[F](
         host = config.db.host,
         port = config.db.port,
