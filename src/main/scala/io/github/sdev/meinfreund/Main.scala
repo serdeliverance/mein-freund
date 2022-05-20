@@ -18,12 +18,20 @@ import io.github.sdev.meinfreund.adapters.out.persistence.ExpenseRepositoryImpl
 import io.github.sdev.meinfreund.adapters.out.quotation.QuotationProviderImpl
 import skunk.Session
 import cats.effect.Async
+import cats.effect.std.Console
 import natchez.Trace.Implicits.noop
 import skunk.implicits._
+import io.github.sdev.meinfreund.application.AddSingleExpenseUseCaseService
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
+import org.http4s.server.middleware.{ Logger => HttpLogger }
 
 object Main extends IOApp:
 
-  private def createServer[F[_]: Async](): Resource[F, Server] =
+  private def createServer[F[_]: Async: Console](): Resource[F, Server] =
+
+    given logger: Logger[F] = Slf4jLogger.getLogger[F]
+
     for
       config <- Resource.eval(
         AppConfig(DbConfig("localhost", 8080, "root", "root", "mf")).pure[F]
@@ -35,19 +43,17 @@ object Main extends IOApp:
         password = Some(config.db.password),
         database = config.db.database,
         max = config.db.max
-      ) // FIXME
-      expenseRepository              = new ExpenseRepositoryImpl(sessionPool)
-      quotationProvider              = new QuotationProviderImpl[F]
-      addSingleExpenseUseCaseService = new AddSingleExpenseUseCase(quotationProvider, expenseRepository)
-      expenseRoutes <- Resource.eval(ExpenseRoute.endpoints[F](addSingleExpenseUseCaseService))
-      httpApp <- Resource.eval(
-        Router("/v1/api" -> expenseRoutes).orNotFound
       )
+      expenseRepository   = new ExpenseRepositoryImpl(sessionPool)
+      quotationProvider   = new QuotationProviderImpl[F]
+      addSingleExpenseUse = new AddSingleExpenseUseCaseService(quotationProvider, expenseRepository)
+      httpApp             = Router("/v1/api" -> ExpenseRoute.endpoints[F](addSingleExpenseUse)).orNotFound
+      finalHttpApp        = HttpLogger.httpApp(true, true)(httpApp)
       server <- EmberServerBuilder
-        .default[IO]
+        .default[F]
         .withHost(ipv4"0.0.0.0")
         .withPort(port"8080")
-        .withHttpApp(httpApp)
+        .withHttpApp(finalHttpApp)
         .build
     yield server
 
