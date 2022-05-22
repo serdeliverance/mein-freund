@@ -11,14 +11,13 @@ object Config:
 
   case class DbConfig(host: String, port: Int, user: String, password: String, database: String, max: Int = 10)
 
-  // TODO: review defaults values on instantiation
   def loadConfig[F[_]: Async](): F[AppConfig] =
     (
-      env("DB_HOST").as[String],
-      env("DB_PORT").as[Int],
-      env("DB_USER").as[String],
-      env("DB_PASSWORD").as[String],
-      env("DB_DATABASE").as[String]
+      env("DB_HOST").as[String].default("localhost"),
+      env("DB_PORT").as[Int].default(8080),
+      env("DB_USER").as[String].default("root"),
+      env("DB_PASSWORD").as[String].default("root"),
+      env("DB_DATABASE").as[String].default("mf")
     ).parMapN { (host, port, user, password, database) =>
       val dbConfig = DbConfig(host, port, user, password, database)
       AppConfig(dbConfig)
