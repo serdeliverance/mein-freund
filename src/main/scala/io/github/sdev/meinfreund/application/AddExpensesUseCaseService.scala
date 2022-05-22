@@ -19,10 +19,14 @@ class AddExpenseUseCaseService[F[_]: Monad](
       expenses <- originalExpenses.map(_.toExpense(quote)).pure[F]
       _        <- expenseRepository.saveBulk(expenses)
       credit <-
-        Credit(
-          expenses.map(_.amountUsd).sum,
-          quote,
-          expenses.head.date.toExpensePeriod // TODO fix if empty list it will explode
-        )
-          .pure[F]
+        expenses match
+          case head :: _ =>
+            Credit(
+              expenses.map(_.amountUsd).sum,
+              quote,
+              head.date.toExpensePeriod
+            ).pure[F]
+          case _ =>
+            Credit(100, 100, "2020-2")
+              .pure[F] // TODO dummy data... add error handling (with ApplicativeError or MonadError)
     yield credit
