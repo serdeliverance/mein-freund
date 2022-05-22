@@ -5,4 +5,4 @@ import io.github.sdev.meinfreund.domain.entities.ExpenseId
 
 object ExpenseUtil:
 
-  extension (date: LocalDateTime) def toExpensePeriod: String = s"${date.getYear}-${date.getMonth}"
+  extension (date: LocalDateTime) def toExpensePeriod: String = s"${date.getYear}-${date.getMonth.getValue}"
