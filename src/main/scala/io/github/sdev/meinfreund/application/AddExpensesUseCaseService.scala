@@ -6,7 +6,6 @@ import io.github.sdev.meinfreund.domain.entities.Credit
 import io.github.sdev.meinfreund.application.quotation.QuotationProvider
 import cats.syntax.all._
 import cats.Monad
-import io.github.sdev.meinfreund.domain.entities.CurrencyConverter.convert
 import io.github.sdev.meinfreund.application.ports.out.persistence.ExpenseRepository
 import io.github.sdev.meinfreund.application.util.ExpenseUtil.toExpensePeriod
 
@@ -17,7 +16,7 @@ class AddExpenseUseCaseService[F[_]: Monad](
   override def addExpenses(originalExpenses: List[OriginalExpense]): F[Credit] =
     for
       quote    <- quotationProvider.getQuote()
-      expenses <- originalExpenses.map(exp => convert(exp, quote)).pure[F]
+      expenses <- originalExpenses.map(_.toExpense(quote)).pure[F]
       _        <- expenseRepository.saveBulk(expenses)
       credit <-
         Credit(

@@ -9,3 +9,16 @@ case class OriginalExpense(
     category: Option[Category],
     amount: BigDecimal
 )
+
+object OriginalExpense:
+
+  extension (originalExpense: OriginalExpense)
+    def toExpense(quote: BigDecimal): Expense =
+      Expense(
+        name = originalExpense.name,
+        description = originalExpense.description,
+        category = originalExpense.category,
+        date = LocalDateTime.now,
+        amountUsd = originalExpense.amount * quote,
+        amountArs = originalExpense.amount
+      )

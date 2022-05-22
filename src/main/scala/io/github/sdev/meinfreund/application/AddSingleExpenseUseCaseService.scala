@@ -5,7 +5,6 @@ import cats.syntax.all._
 import io.github.sdev.meinfreund.application.ports.out.persistence.ExpenseRepository
 import io.github.sdev.meinfreund.domain.entities.OriginalExpense
 import io.github.sdev.meinfreund.domain.entities.Expense
-import io.github.sdev.meinfreund.domain.entities.CurrencyConverter.convert
 import io.github.sdev.meinfreund.domain.usecases.AddSingleExpenseUseCase
 import io.github.sdev.meinfreund.application.quotation.QuotationProvider
 import io.github.sdev.meinfreund.domain.entities.Credit
@@ -22,7 +21,7 @@ class AddSingleExpenseUseCaseService[F[_]: Monad: Logger: Applicative](
   override def addExpense(originalExpense: OriginalExpense): F[Credit] =
     for
       quote   <- quotationProvider.getQuote()
-      expense <- convert(originalExpense, quote).pure[F]
+      expense <- originalExpense.toExpense(quote).pure[F]
       _       <- expenseRepository.save(expense)
       credit <- Credit(
         expense.amountUsd,
