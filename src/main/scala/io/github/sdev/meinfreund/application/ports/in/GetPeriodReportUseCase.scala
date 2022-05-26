@@ -1,4 +1,4 @@
-package io.github.sdev.meinfreund.domain.usecases
+package io.github.sdev.meinfreund.application.ports.in
 
 import io.github.sdev.meinfreund.domain.entities.Report
 

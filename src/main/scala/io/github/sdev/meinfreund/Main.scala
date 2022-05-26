@@ -11,7 +11,7 @@ import com.comcast.ip4s._
 import org.http4s.server.Router
 import org.http4s.implicits._
 import io.github.sdev.meinfreund.adapters.in.rest.ExpenseRoute
-import io.github.sdev.meinfreund.domain.usecases.AddSingleExpenseUseCase
+import io.github.sdev.meinfreund.application.ports.in.AddSingleExpenseUseCase
 import io.github.sdev.meinfreund.application.config.Config.AppConfig
 import io.github.sdev.meinfreund.application.config.Config.DbConfig
 import io.github.sdev.meinfreund.adapters.out.persistence.ExpenseRepositoryImpl
@@ -21,7 +21,7 @@ import cats.effect.Async
 import cats.effect.std.Console
 import natchez.Trace.Implicits.noop
 import skunk.implicits._
-import io.github.sdev.meinfreund.application.AddSingleExpenseUseCaseService
+import io.github.sdev.meinfreund.application.AddSingleExpenseService
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 import org.http4s.server.middleware.{ Logger => HttpLogger }
@@ -45,7 +45,7 @@ object Main extends IOApp:
       )
       expenseRepository   = new ExpenseRepositoryImpl(sessionPool)
       quotationProvider   = new QuotationProviderImpl[F]
-      addSingleExpenseUse = new AddSingleExpenseUseCaseService(quotationProvider, expenseRepository)
+      addSingleExpenseUse = AddSingleExpenseService.make(quotationProvider, expenseRepository)
       httpApp             = Router("/v1/api" -> ExpenseRoute.endpoints[F](addSingleExpenseUse)).orNotFound
       finalHttpApp        = HttpLogger.httpApp(true, true)(httpApp)
       server <- EmberServerBuilder

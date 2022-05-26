@@ -2,7 +2,7 @@ package io.github.sdev.meinfreund.adapters.in.rest
 
 import cats.syntax.all._
 import cats.effect.Concurrent
-import io.github.sdev.meinfreund.domain.usecases.AddSingleExpenseUseCase
+import io.github.sdev.meinfreund.application.ports.in.AddSingleExpenseUseCase
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 import org.http4s.implicits._
