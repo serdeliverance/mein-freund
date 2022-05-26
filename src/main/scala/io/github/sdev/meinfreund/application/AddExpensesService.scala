@@ -7,7 +7,7 @@ import cats.syntax.all._
 import cats.Monad
 import io.github.sdev.meinfreund.application.ports.out.persistence.ExpenseRepository
 import io.github.sdev.meinfreund.application.util.ExpenseUtil.toExpensePeriod
-import io.github.sdev.meinfreund.domain.usecases.AddExpensesUseCase
+import io.github.sdev.meinfreund.application.ports.in.AddExpensesUseCase
 
 object AddExpensesService:
 
