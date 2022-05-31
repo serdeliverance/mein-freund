@@ -44,7 +44,7 @@ object Main extends IOApp:
         max = config.db.max
       )
       expenseRepository   = new ExpenseRepositoryImpl(sessionPool)
-      quotationProvider   = new QuotationProviderImpl[F]
+      quotationProvider   = QuotationProviderImpl.make()
       addSingleExpenseUse = AddSingleExpenseService.make(quotationProvider, expenseRepository)
       httpApp             = Router("/v1/api" -> ExpenseRoute.endpoints[F](addSingleExpenseUse)).orNotFound
       finalHttpApp        = HttpLogger.httpApp(true, true)(httpApp)

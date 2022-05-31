@@ -15,6 +15,7 @@ lazy val root = (project in file("."))
       http4sCirce,
       http4sDsl,
       skunk,
+      scalaScraper.cross(CrossVersion.for3Use2_13),
       ciris,
       log4cats,
       logbackClassic                               % Runtime,
